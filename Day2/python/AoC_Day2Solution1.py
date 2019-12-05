@@ -4,7 +4,8 @@ with open("../Day2Input.txt") as f:
     for zeile in f:
         instr = list(map(int, zeile.strip().split(",")))
 pos = 0
-
+instr[1] = 12
+instr[2] = 2
 def operation(pos, op):
     op1 = instr[pos + 1]
     op2 = instr[pos + 2]
