@@ -41,9 +41,9 @@ for noun in range(40,50): # I have tried the first value manually
         instr[2] = verb
 
         make_calculation(instr, pos)
-        print(f"Result: {instr[0]}, {noun}, {verb}")
-#        if instr[0] == 19690720:
-#            break
+#        print(f"Result: {instr[0]}, {noun}, {verb}")
+        if instr[0] == 19690720:
+            break
         instr = instr_temp.copy()
         pos = 0
 
