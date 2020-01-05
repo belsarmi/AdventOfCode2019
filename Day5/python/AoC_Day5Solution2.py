@@ -25,12 +25,12 @@ def operand_by_mode(pos, mod3rd_param, mod2nd_param, mod1st_param, op):
     op1 = op2 = op3 = None
     addr1 = instr[pos +1]
     addr2 = instr[pos +2]
-    if op == 1 or op == 2:
+    if op == 1 or op == 2 or op== 5 or op == 6 or op == 7 or op == 8:
         op1 = instr[addr1] if mod1st_param == 0 else instr[pos + 1]
         op2 = instr[addr2] if mod2nd_param == 0 else instr[pos + 2]
         op3 = instr[pos + 3]
     addr1 = addr2 = None
-    if op == 3 or op == 4:
+    if op == 3 or op == 4: 
         op1 = instr[pos + 1]
 
     return op1, op2, op3
@@ -50,8 +50,32 @@ def operation(pos, op_input, input_value):
         instr[op1] = input_value
         newpos = pos + 2
     if op == 4: #output
+#        print(f"pos: {pos}; op_input: {op_input}; op: {op}, a: {a}, b: {b}, c: {c}, op1: {op1}, op2: {op2}, op3: {op3}")
+#        print(f"op_intput: {op_input}")
         print(f"Output: {instr[op1]}")
+#        print(f"Output: {op1}")
         newpos = pos + 2
+    if op == 5: 
+        if op1 != 0:
+            newpos = op2
+        else: 
+            newpos = pos + 3
+    if op == 6: 
+        if op1 == 0:
+            newpos = op2
+        else: 
+            newpos = pos + 3
+    if op == 7: 
+        if op1 < op2:
+            instr[op3] = 1
+        else: instr[op3] = 0
+        newpos = pos + 4
+    if op == 8:
+        if op1 == op2:
+            instr[op3] = 1
+        else: instr[op3] = 0
+        newpos = pos + 4
+#    print(f"pos: {pos}; op_input: {op_input}; op: {op}, a: {a}, b: {b}, c: {c}, op1: {op1}, op2: {op2}, op3: {op3}")
     return newpos
 
 def make_calculation (instr, pos, input_value):
@@ -66,23 +90,16 @@ with open("../Day5Input.txt") as f:
         instr = list(map(int, zeile.strip().split(",")))
 
 pos = 0
-_instr = make_calculation(instr, pos, 1)
+
+#test input:
+#instr = [ 3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,
+#1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,
+#999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99]
+
+_instr = make_calculation(instr, pos, 5)
 
 #instr = [1101,100,-1,4,0]
 #instr = [1002,  4, 3, 4,33]
 #assert [1101, 100, -1, 4, 99] == make_calculation([1101,100,-1, 4, 0],0)
 #assert [1002,   4,  3, 4, 99] == make_calculation([1002,  4, 3, 4,33],0) 
-
-#Output to the console
-
-#Output: 3
-#Output: 0
-#Output: 0
-#Output: 0
-#Output: 0
-#Output: 0
-#Output: 0
-#Output: 0
-#Output: 0
-#Output: 9006673
 
