@@ -1,3 +1,4 @@
+
 zahlen = []
 
 with open("../Day1Input.txt") as f:
